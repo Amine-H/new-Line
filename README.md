@@ -1,2 +1,1 @@
-# new-Line
-simple IDE with plugins.
+Created with Git Draw (http://github.com/ben174/git-draw)
