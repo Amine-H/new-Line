@@ -5,6 +5,18 @@
  */
 package pkgnew.line;
 
+import java.beans.PropertyVetoException;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
+import javax.swing.event.InternalFrameAdapter;
+import javax.swing.event.InternalFrameEvent;
+import lib.TextLineNumber;
+
 /**
  *
  * @author amine
@@ -17,6 +29,58 @@ public class InnerWindow extends javax.swing.JInternalFrame {
     public InnerWindow() {
         initComponents();
         this.setVisible(true);
+        this.setMaximizable(true);
+        this.setResizable(true);
+        this.setClosable(true);
+        this.setFocusable(true);
+        this.setTitle("New File");
+        TextLineNumber tln = new TextLineNumber(textArea);
+        scrollPane.setRowHeaderView(tln);
+        this.addInternalFrameListener(new InternalFrameAdapter(){
+            @Override
+            public void internalFrameActivated(InternalFrameEvent e){
+                textArea.requestFocusInWindow();
+            }
+        });
+    }
+    
+    public JTextArea getTextArea(){
+        return this.textArea;
+    }
+    
+    public InnerWindow(File file){
+        this();
+        this.openFile(file);
+    }
+    
+    public void openFile(File file){
+        try{
+            FileReader reader = new FileReader(file);
+            selectFile(file);
+            this.textArea.read(reader,this);
+        }catch(IOException e){
+            System.out.println("Could not open "+file.getName());
+        }
+    }
+    
+    public void saveFile() throws Exception{
+        FileWriter writer = new FileWriter(file);
+        this.textArea.write(writer);
+        writer.close();
+    }
+    
+    public void selectFile(File file){
+        this.file = file;
+        this.setTitle(file.getName());
+    }
+    
+    public void saveFile(File file){
+        selectFile(file);
+        try{
+            this.saveFile();
+        }catch(Exception e){
+            System.out.println("Could not save file!");
+        }
     }
 
     /**
@@ -28,21 +92,27 @@ public class InnerWindow extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
-        );
+        scrollPane = new javax.swing.JScrollPane();
+        textArea = new javax.swing.JTextArea();
+
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+        setMinimumSize(new java.awt.Dimension(150, 150));
+        getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
+
+        textArea.setColumns(20);
+        textArea.setRows(5);
+        scrollPane.setViewportView(textArea);
+
+        getContentPane().add(scrollPane);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-
+    private File file;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane scrollPane;
+    private javax.swing.JTextArea textArea;
     // End of variables declaration//GEN-END:variables
 }
