@@ -10,6 +10,7 @@ import java.io.IOException;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
+import javax.swing.JToolBar;
 
 /**
  *
@@ -34,6 +35,10 @@ public class MainWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        SplitPane = new javax.swing.JSplitPane();
+        PT_Panel = new javax.swing.JPanel();
+        PT_ScrollPane = new javax.swing.JScrollPane();
+        ProjectTree = new javax.swing.JTree();
         desktopPane = new javax.swing.JDesktopPane();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
@@ -56,6 +61,22 @@ public class MainWindow extends javax.swing.JFrame {
         aboutMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        PT_ScrollPane.setViewportView(ProjectTree);
+
+        javax.swing.GroupLayout PT_PanelLayout = new javax.swing.GroupLayout(PT_Panel);
+        PT_Panel.setLayout(PT_PanelLayout);
+        PT_PanelLayout.setHorizontalGroup(
+            PT_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(PT_ScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+        );
+        PT_PanelLayout.setVerticalGroup(
+            PT_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(PT_ScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
+        );
+
+        SplitPane.setLeftComponent(PT_Panel);
+        SplitPane.setRightComponent(desktopPane);
 
         fileMenu.setMnemonic('f');
         fileMenu.setText("File");
@@ -205,11 +226,11 @@ public class MainWindow extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 615, Short.MAX_VALUE)
+            .addComponent(SplitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 712, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
+            .addComponent(SplitPane)
         );
 
         pack();
@@ -349,6 +370,10 @@ public class MainWindow extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel PT_Panel;
+    private javax.swing.JScrollPane PT_ScrollPane;
+    private javax.swing.JTree ProjectTree;
+    private javax.swing.JSplitPane SplitPane;
     private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JMenuItem aboutMenuItem1;
     private javax.swing.JMenuItem copyMenuItem;
