@@ -7,6 +7,7 @@ package pkgnew.line;
 
 import java.beans.PropertyVetoException;
 import java.io.IOException;
+import java.security.Policy;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
@@ -363,6 +364,10 @@ public class MainWindow extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
+                //set plugin policy
+                Policy.setPolicy(new PluginPolicy());
+		System.setSecurityManager(new SecurityManager());
+                //instantiate MainWindow and start it
                 JFrame window = new MainWindow();
                 window.setVisible(true);
                 window.setExtendedState(window.getExtendedState() | JFrame.MAXIMIZED_BOTH);
