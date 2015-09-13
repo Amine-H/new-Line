@@ -161,7 +161,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="aboutMenuItem">
               <Properties>
                 <Property name="mnemonic" type="int" value="97"/>
-                <Property name="text" type="java.lang.String" value="Settings"/>
+                <Property name="text" type="java.lang.String" value="Settings.."/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="aboutMenuItemActionPerformed"/>
@@ -169,7 +169,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="pluginsMenuItem">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Plugins"/>
+                <Property name="text" type="java.lang.String" value="Plugins.."/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pluginsMenuItemActionPerformed"/>

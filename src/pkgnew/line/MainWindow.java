@@ -198,7 +198,7 @@ public class MainWindow extends javax.swing.JFrame {
         helpMenu.setText("Help");
 
         aboutMenuItem.setMnemonic('a');
-        aboutMenuItem.setText("Settings");
+        aboutMenuItem.setText("Settings..");
         aboutMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 aboutMenuItemActionPerformed(evt);
@@ -206,7 +206,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
         helpMenu.add(aboutMenuItem);
 
-        pluginsMenuItem.setText("Plugins");
+        pluginsMenuItem.setText("Plugins..");
         pluginsMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pluginsMenuItemActionPerformed(evt);
@@ -259,7 +259,8 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_aboutMenuItemActionPerformed
 
     private void pluginsMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pluginsMenuItemActionPerformed
-        // TODO add your handling code here:
+        PluginDialog dialog = new PluginDialog(this,true);
+        dialog.setVisible(true);
     }//GEN-LAST:event_pluginsMenuItemActionPerformed
 
     private void newMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newMenuItemActionPerformed

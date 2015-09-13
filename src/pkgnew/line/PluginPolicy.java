@@ -20,10 +20,9 @@ public class PluginPolicy extends Policy {
     @Override
     public PermissionCollection getPermissions(CodeSource codeSource) {
         Permissions p = new Permissions();
-        if(false){//in the future we'll have somesort of conditions..
-            return p;
+        if(true){//in the future we'll have somesort of conditions..
+            p.add(new AllPermission());
         }
-        p.add(new AllPermission());
         return p;
     }
     
