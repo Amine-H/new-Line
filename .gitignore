@@ -1,2 +1,3 @@
 /dist/
-*.class
+/build/classes/pkgnew/line/*.class
+/build/classes/lib/*.class
