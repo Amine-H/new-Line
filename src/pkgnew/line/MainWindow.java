@@ -5,6 +5,7 @@
  */
 package pkgnew.line;
 
+import pkgnew.line.plugin.PluginPolicy;
 import java.beans.PropertyVetoException;
 import java.io.IOException;
 import java.security.Policy;

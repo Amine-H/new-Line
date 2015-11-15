@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pkgnew.line;
+package pkgnew.line.plugin;
 
 /**
  *
@@ -11,6 +11,7 @@ package pkgnew.line;
  * interface for plugins
  */
 public interface Plugin {
+    public void load(PluginConfiguration conf);
     public void run();
     public void suspend();
     public void resume();
