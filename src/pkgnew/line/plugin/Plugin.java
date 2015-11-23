@@ -11,7 +11,7 @@ package pkgnew.line.plugin;
  * interface for plugins
  */
 public interface Plugin {
-    public void load(PluginConfiguration conf);
+    public void load(PluginConfigurationImpl conf);
     public void run();
     public void suspend();
     public void resume();

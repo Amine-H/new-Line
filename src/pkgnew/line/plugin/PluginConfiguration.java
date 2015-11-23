@@ -13,20 +13,11 @@ import javax.swing.JTree;
  *
  * @author amine
  */
-public class PluginConfiguration {
-    private JTree tree;
-    private JMenuBar toolBar;
-    private JInternalFrame[] internalFrames;
+public interface PluginConfiguration {
 
-    public JTree getTree() {
-        return tree;
-    }
+    public JTree getTree();
 
-    public JMenuBar getToolBar() {
-        return toolBar;
-    }
+    public JMenuBar getToolBar();
 
-    public JInternalFrame[] getInternalFrames() {
-        return internalFrames;
-    }
+    public JInternalFrame[] getInternalFrames();
 }
