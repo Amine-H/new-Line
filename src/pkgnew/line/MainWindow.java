@@ -13,6 +13,9 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import javax.swing.JToolBar;
+import pkgnew.line.plugin.PluginConfiguration;
+import pkgnew.line.plugin.PluginConfigurationImpl;
+import pkgnew.line.plugin.PluginManager;
 
 /**
  *
@@ -26,6 +29,13 @@ public class MainWindow extends javax.swing.JFrame {
     public MainWindow() {
         initComponents();
         this.setTitle("new Line");
+        PluginManager pManager = PluginManager.getInstance();
+        PluginConfiguration conf = new PluginConfigurationImpl();
+        conf.setToolBar(menuBar);
+        conf.setTree(ProjectTree);
+        conf.setDesktopPane(desktopPane);
+        pManager.setPluginConfiguration(conf);
+        pManager.loadPlugins();
     }
 
     /**

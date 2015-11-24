@@ -5,7 +5,7 @@
  */
 package pkgnew.line.plugin;
 
-import javax.swing.JInternalFrame;
+import javax.swing.JDesktopPane;
 import javax.swing.JMenuBar;
 import javax.swing.JTree;
 
@@ -16,8 +16,11 @@ import javax.swing.JTree;
 public interface PluginConfiguration {
 
     public JTree getTree();
+    public void setTree(JTree tree);
 
     public JMenuBar getToolBar();
+    public void setToolBar(JMenuBar menuBar);
 
-    public JInternalFrame[] getInternalFrames();
+    public JDesktopPane getDesktopPane();
+    public void setDesktopPane(JDesktopPane desktopPane);
 }
