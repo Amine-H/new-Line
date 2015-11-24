@@ -41,6 +41,7 @@ public class PluginManager {
             directory.mkdir();
         }
         plugins = new ArrayList<>();
+
         for (File file : directory.listFiles()) {
             if (!file.isDirectory()) {
                 JarClassLoader jcl = new JarClassLoader();
@@ -49,7 +50,6 @@ public class PluginManager {
 
                 jcl.getSystemLoader().setOrder(1);
                 jcl.add(file.getAbsolutePath());
-
                 Plugin plugin = (Plugin) factory.create(jcl, "plugin." + file.getName().replace(".jar", ""));
                 this.addPlugin(plugin);
                 plugin.load(pluginConfiguration);

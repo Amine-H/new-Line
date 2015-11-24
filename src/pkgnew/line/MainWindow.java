@@ -386,8 +386,8 @@ public class MainWindow extends javax.swing.JFrame {
                 System.setSecurityManager(new SecurityManager());
                 //instantiate MainWindow and start it
                 JFrame window = new MainWindow();
-                window.setVisible(true);
                 window.setExtendedState(window.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+                window.setVisible(true);
             }
         });
     }
