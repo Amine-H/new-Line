@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pkgnew.line.plugin;
+package plugin;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -44,12 +44,13 @@ public class PluginManager {
         for (File file : directory.listFiles()) {
             if (!file.isDirectory()) {
                 JarClassLoader jcl = new JarClassLoader();
-                ProxyProviderFactory.setDefaultProxyProvider( new CglibProxyProvider() );
+                ProxyProviderFactory.setDefaultProxyProvider(new CglibProxyProvider());
                 JclObjectFactory factory = JclObjectFactory.getInstance(true);
 
+                jcl.getSystemLoader().setOrder(1);
                 jcl.add(file.getAbsolutePath());
-                
-                Plugin plugin = (Plugin) factory.create(jcl, "plugin." + file.getName().replace(".jar",""));
+
+                Plugin plugin = (Plugin) factory.create(jcl, "plugin." + file.getName().replace(".jar", ""));
                 this.addPlugin(plugin);
                 plugin.load(pluginConfiguration);
             }
@@ -67,12 +68,12 @@ public class PluginManager {
     public Plugin getPlugin(int index) {
         return plugins.get(index);
     }
-    
-    public PluginConfiguration getPluginConfiguration(){
+
+    public PluginConfiguration getPluginConfiguration() {
         return this.pluginConfiguration;
     }
-    
-    public void setPluginConfiguration(PluginConfiguration conf){
+
+    public void setPluginConfiguration(PluginConfiguration conf) {
         this.pluginConfiguration = conf;
     }
 }

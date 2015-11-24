@@ -5,7 +5,7 @@
  */
 package pkgnew.line;
 
-import pkgnew.line.plugin.PluginPolicy;
+import plugin.PluginPolicy;
 import java.beans.PropertyVetoException;
 import java.io.IOException;
 import java.security.Policy;
@@ -13,9 +13,9 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import javax.swing.JToolBar;
-import pkgnew.line.plugin.PluginConfiguration;
-import pkgnew.line.plugin.PluginConfigurationImpl;
-import pkgnew.line.plugin.PluginManager;
+import plugin.PluginConfiguration;
+import plugin.PluginConfigurationImpl;
+import plugin.PluginManager;
 
 /**
  *
@@ -29,13 +29,17 @@ public class MainWindow extends javax.swing.JFrame {
     public MainWindow() {
         initComponents();
         this.setTitle("new Line");
-        PluginManager pManager = PluginManager.getInstance();
-        PluginConfiguration conf = new PluginConfigurationImpl();
-        conf.setToolBar(menuBar);
-        conf.setTree(ProjectTree);
-        conf.setDesktopPane(desktopPane);
-        pManager.setPluginConfiguration(conf);
-        pManager.loadPlugins();
+        try {
+            PluginManager pManager = PluginManager.getInstance();
+            PluginConfiguration conf = new PluginConfigurationImpl();
+            conf.setToolBar(menuBar);
+            conf.setTree(ProjectTree);
+            conf.setDesktopPane(desktopPane);
+            pManager.setPluginConfiguration(conf);
+            pManager.loadPlugins();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -254,7 +258,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void openMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openMenuItemActionPerformed
         JFileChooser fileChooser = new JFileChooser();
-        if(fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
+        if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             InnerWindow nv = new InnerWindow(fileChooser.getSelectedFile());
             desktopPane.add(nv);
             try {
@@ -270,7 +274,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_aboutMenuItemActionPerformed
 
     private void pluginsMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pluginsMenuItemActionPerformed
-        PluginDialog dialog = new PluginDialog(this,true);
+        PluginDialog dialog = new PluginDialog(this, true);
         dialog.setVisible(true);
     }//GEN-LAST:event_pluginsMenuItemActionPerformed
 
@@ -285,63 +289,64 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_newMenuItemActionPerformed
 
     private void undoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_undoMenuItemActionPerformed
-        if(desktopPane.getSelectedFrame() == null){
+        if (desktopPane.getSelectedFrame() == null) {
             return;
         }
     }//GEN-LAST:event_undoMenuItemActionPerformed
 
     private void cutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cutMenuItemActionPerformed
-        if(desktopPane.getSelectedFrame() == null){
+        if (desktopPane.getSelectedFrame() == null) {
             return;
         }
-        ((InnerWindow)desktopPane.getSelectedFrame()).getTextArea().cut();
+        ((InnerWindow) desktopPane.getSelectedFrame()).getTextArea().cut();
     }//GEN-LAST:event_cutMenuItemActionPerformed
 
     private void pasteMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pasteMenuItemActionPerformed
-        if(desktopPane.getSelectedFrame() == null){
+        if (desktopPane.getSelectedFrame() == null) {
             return;
         }
-        ((InnerWindow)desktopPane.getSelectedFrame()).getTextArea().paste();
+        ((InnerWindow) desktopPane.getSelectedFrame()).getTextArea().paste();
     }//GEN-LAST:event_pasteMenuItemActionPerformed
 
     private void copyMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyMenuItemActionPerformed
-        if(desktopPane.getSelectedFrame() == null){
+        if (desktopPane.getSelectedFrame() == null) {
             return;
         }
-        ((InnerWindow)desktopPane.getSelectedFrame()).getTextArea().copy();
+        ((InnerWindow) desktopPane.getSelectedFrame()).getTextArea().copy();
     }//GEN-LAST:event_copyMenuItemActionPerformed
 
     private void deleteMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteMenuItemActionPerformed
-        if(desktopPane.getSelectedFrame() == null){
+        if (desktopPane.getSelectedFrame() == null) {
             return;
         }
-        JTextArea textArea = ((InnerWindow)desktopPane.getSelectedFrame()).getTextArea();
-        try{
-            textArea.setText(textArea.getText().replace(textArea.getSelectedText(),""));
-        }catch(Exception e){}
+        JTextArea textArea = ((InnerWindow) desktopPane.getSelectedFrame()).getTextArea();
+        try {
+            textArea.setText(textArea.getText().replace(textArea.getSelectedText(), ""));
+        } catch (Exception e) {
+        }
     }//GEN-LAST:event_deleteMenuItemActionPerformed
 
     private void saveMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMenuItemActionPerformed
-        if(desktopPane.getSelectedFrame() == null){
+        if (desktopPane.getSelectedFrame() == null) {
             return;
         }
-        try{
-            ((InnerWindow)desktopPane.getSelectedFrame()).saveFile();
-        }catch(Exception e){
+        try {
+            ((InnerWindow) desktopPane.getSelectedFrame()).saveFile();
+        } catch (Exception e) {
             JFileChooser fileChooser = new JFileChooser();
-            if(fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION){
-                ((InnerWindow)desktopPane.getSelectedFrame()).saveFile(fileChooser.getSelectedFile());
+            if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+                ((InnerWindow) desktopPane.getSelectedFrame()).saveFile(fileChooser.getSelectedFile());
             }
         }
     }//GEN-LAST:event_saveMenuItemActionPerformed
 
     private void saveAsMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveAsMenuItemActionPerformed
-        if(desktopPane.getSelectedFrame() == null){
+        if (desktopPane.getSelectedFrame() == null) {
             return;
         }
         JFileChooser fileChooser = new JFileChooser();
-        if(fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION){
-            ((InnerWindow)desktopPane.getSelectedFrame()).saveFile(fileChooser.getSelectedFile());
+        if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+            ((InnerWindow) desktopPane.getSelectedFrame()).saveFile(fileChooser.getSelectedFile());
         }
     }//GEN-LAST:event_saveAsMenuItemActionPerformed
 
@@ -378,7 +383,7 @@ public class MainWindow extends javax.swing.JFrame {
             public void run() {
                 //set plugin policy
                 Policy.setPolicy(new PluginPolicy());
-		System.setSecurityManager(new SecurityManager());
+                System.setSecurityManager(new SecurityManager());
                 //instantiate MainWindow and start it
                 JFrame window = new MainWindow();
                 window.setVisible(true);
