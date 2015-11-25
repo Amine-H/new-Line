@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.security.Policy;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JTextArea;
+import javax.swing.JTextPane;
 import javax.swing.JToolBar;
 import plugin.PluginConfiguration;
 import plugin.PluginConfigurationImpl;
@@ -232,6 +232,11 @@ public class MainWindow extends javax.swing.JFrame {
         aboutMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
         aboutMenuItem1.setMnemonic('a');
         aboutMenuItem1.setText("About");
+        aboutMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aboutMenuItem1ActionPerformed(evt);
+            }
+        });
         helpMenu.add(aboutMenuItem1);
 
         menuBar.add(helpMenu);
@@ -270,7 +275,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_openMenuItemActionPerformed
 
     private void aboutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutMenuItemActionPerformed
-        // TODO add your handling code here:
+        //Settings
     }//GEN-LAST:event_aboutMenuItemActionPerformed
 
     private void pluginsMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pluginsMenuItemActionPerformed
@@ -319,9 +324,9 @@ public class MainWindow extends javax.swing.JFrame {
         if (desktopPane.getSelectedFrame() == null) {
             return;
         }
-        JTextArea textArea = ((InnerWindow) desktopPane.getSelectedFrame()).getTextArea();
+        JTextPane textPane = ((InnerWindow) desktopPane.getSelectedFrame()).getTextArea();
         try {
-            textArea.setText(textArea.getText().replace(textArea.getSelectedText(), ""));
+            textPane.setText(textPane.getText().replace(textPane.getSelectedText(), ""));
         } catch (Exception e) {
         }
     }//GEN-LAST:event_deleteMenuItemActionPerformed
@@ -349,6 +354,13 @@ public class MainWindow extends javax.swing.JFrame {
             ((InnerWindow) desktopPane.getSelectedFrame()).saveFile(fileChooser.getSelectedFile());
         }
     }//GEN-LAST:event_saveAsMenuItemActionPerformed
+
+    private void aboutMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutMenuItem1ActionPerformed
+        //AboutDialog dialog = new AboutDialog(this,true);
+        //dialog.setLocationRelativeTo(null);
+        //dialog.setVisible(true);
+        AboutDialog.main(null);
+    }//GEN-LAST:event_aboutMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
