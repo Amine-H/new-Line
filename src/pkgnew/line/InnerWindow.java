@@ -16,12 +16,13 @@ import javax.swing.JTextPane;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 import lib.TextLineNumber;
+import plugin.PluginManager;
 
 /**
  *
  * @author amine
  */
-public class InnerWindow extends javax.swing.JInternalFrame {
+public class InnerWindow extends javax.swing.JInternalFrame{
 
     /**
      * Creates new form InnerWindow
@@ -42,10 +43,15 @@ public class InnerWindow extends javax.swing.JInternalFrame {
                 textPane.requestFocusInWindow();
             }
         });
+        //PluginManager.getInstance().getPlugin(0).run();
     }
     
-    public JTextPane getTextArea(){
+    public JTextPane getTextPane(){
         return this.textPane;
+    }
+    
+    public void setTextPane(JTextPane textPane){
+        this.textPane = textPane;
     }
     
     public InnerWindow(File file){

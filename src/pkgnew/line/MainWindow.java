@@ -5,14 +5,15 @@
  */
 package pkgnew.line;
 
+import lib.FileTreeModel;
 import plugin.PluginPolicy;
 import java.beans.PropertyVetoException;
-import java.io.IOException;
+import java.io.File;
 import java.security.Policy;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JTextPane;
-import javax.swing.JToolBar;
+import javax.swing.tree.TreeModel;
 import plugin.PluginConfiguration;
 import plugin.PluginConfigurationImpl;
 import plugin.PluginManager;
@@ -58,6 +59,8 @@ public class MainWindow extends javax.swing.JFrame {
         desktopPane = new javax.swing.JDesktopPane();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
+        openFolder = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
         newMenuItem = new javax.swing.JMenuItem();
         openMenuItem = new javax.swing.JMenuItem();
         saveMenuItem = new javax.swing.JMenuItem();
@@ -78,6 +81,12 @@ public class MainWindow extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        ProjectTree.setModel(new FileTreeModel(new File(".")));
+        ProjectTree.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ProjectTreeMouseClicked(evt);
+            }
+        });
         PT_ScrollPane.setViewportView(ProjectTree);
 
         javax.swing.GroupLayout PT_PanelLayout = new javax.swing.GroupLayout(PT_Panel);
@@ -96,6 +105,16 @@ public class MainWindow extends javax.swing.JFrame {
 
         fileMenu.setMnemonic('f');
         fileMenu.setText("File");
+
+        openFolder.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        openFolder.setText("Open Folder");
+        openFolder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openFolderActionPerformed(evt);
+            }
+        });
+        fileMenu.add(openFolder);
+        fileMenu.add(jSeparator2);
 
         newMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
         newMenuItem.setText("New");
@@ -303,28 +322,28 @@ public class MainWindow extends javax.swing.JFrame {
         if (desktopPane.getSelectedFrame() == null) {
             return;
         }
-        ((InnerWindow) desktopPane.getSelectedFrame()).getTextArea().cut();
+        ((InnerWindow) desktopPane.getSelectedFrame()).getTextPane().cut();
     }//GEN-LAST:event_cutMenuItemActionPerformed
 
     private void pasteMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pasteMenuItemActionPerformed
         if (desktopPane.getSelectedFrame() == null) {
             return;
         }
-        ((InnerWindow) desktopPane.getSelectedFrame()).getTextArea().paste();
+        ((InnerWindow) desktopPane.getSelectedFrame()).getTextPane().paste();
     }//GEN-LAST:event_pasteMenuItemActionPerformed
 
     private void copyMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyMenuItemActionPerformed
         if (desktopPane.getSelectedFrame() == null) {
             return;
         }
-        ((InnerWindow) desktopPane.getSelectedFrame()).getTextArea().copy();
+        ((InnerWindow) desktopPane.getSelectedFrame()).getTextPane().copy();
     }//GEN-LAST:event_copyMenuItemActionPerformed
 
     private void deleteMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteMenuItemActionPerformed
         if (desktopPane.getSelectedFrame() == null) {
             return;
         }
-        JTextPane textPane = ((InnerWindow) desktopPane.getSelectedFrame()).getTextArea();
+        JTextPane textPane = ((InnerWindow) desktopPane.getSelectedFrame()).getTextPane();
         try {
             textPane.setText(textPane.getText().replace(textPane.getSelectedText(), ""));
         } catch (Exception e) {
@@ -361,6 +380,36 @@ public class MainWindow extends javax.swing.JFrame {
         //dialog.setVisible(true);
         AboutDialog.main(null);
     }//GEN-LAST:event_aboutMenuItem1ActionPerformed
+
+    private void openFolderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openFolderActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        fileChooser.setAcceptAllFileFilterUsed(false);
+        if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            TreeModel model = new FileTreeModel(fileChooser.getCurrentDirectory());
+
+            ProjectTree.setModel(model);
+            PT_ScrollPane.setViewportView(ProjectTree);
+        }
+    }//GEN-LAST:event_openFolderActionPerformed
+
+    private void ProjectTreeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProjectTreeMouseClicked
+        Object[] paths = ProjectTree.getSelectionPath().getPath();
+        if (evt.getClickCount() == 2) {
+            if (paths.length > 0) {
+                File fichier = new File(paths[paths.length - 1].toString());
+                if (!fichier.isDirectory()) {
+                    InnerWindow nv = new InnerWindow(fichier);
+                    desktopPane.add(nv);
+                    try {
+                        nv.setSelected(true);
+                    } catch (PropertyVetoException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_ProjectTreeMouseClicked
 
     /**
      * @param args the command line arguments
@@ -419,8 +468,10 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem newMenuItem;
+    private javax.swing.JMenuItem openFolder;
     private javax.swing.JMenuItem openMenuItem;
     private javax.swing.JMenuItem pasteMenuItem;
     private javax.swing.JMenuItem pluginsMenuItem;

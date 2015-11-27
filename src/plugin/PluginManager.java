@@ -6,6 +6,7 @@
 package plugin;
 
 import java.io.File;
+import java.security.Policy;
 import java.util.ArrayList;
 import java.util.List;
 import org.xeustechnologies.jcl.JarClassLoader;
@@ -41,12 +42,14 @@ public class PluginManager {
             directory.mkdir();
         }
         plugins = new ArrayList<>();
+        Policy.setPolicy(new PluginPolicy());
+        System.setSecurityManager(new SecurityManager());
+        JarClassLoader jcl = new JarClassLoader();
+        ProxyProviderFactory.setDefaultProxyProvider(new CglibProxyProvider());
+        JclObjectFactory factory = JclObjectFactory.getInstance(true);
 
         for (File file : directory.listFiles()) {
             if (!file.isDirectory()) {
-                JarClassLoader jcl = new JarClassLoader();
-                ProxyProviderFactory.setDefaultProxyProvider(new CglibProxyProvider());
-                JclObjectFactory factory = JclObjectFactory.getInstance(true);
 
                 jcl.getSystemLoader().setOrder(1);
                 jcl.add(file.getAbsolutePath());
