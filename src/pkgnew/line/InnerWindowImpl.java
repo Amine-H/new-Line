@@ -12,6 +12,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
@@ -43,7 +44,6 @@ public class InnerWindowImpl extends javax.swing.JInternalFrame implements Inner
                 textPane.requestFocusInWindow();
             }
         });
-        //PluginManager.getInstance().getPlugin(0).run();
     }
     
     public JTextPane getTextPane(){
@@ -142,4 +142,14 @@ public class InnerWindowImpl extends javax.swing.JInternalFrame implements Inner
     private javax.swing.JScrollPane scrollPane;
     private javax.swing.JTextPane textPane;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public JScrollPane getScrollPane() {
+        return this.scrollPane;
+    }
+
+    @Override
+    public void setScrollPane(JScrollPane scrollPane) {
+        this.scrollPane = scrollPane;
+    }
 }

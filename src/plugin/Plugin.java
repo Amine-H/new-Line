@@ -11,6 +11,7 @@ package plugin;
  * interface for plugins
  */
 public interface Plugin {
+    public String getName();
     public void load(PluginConfiguration conf);
     public void run();
     public void suspend();

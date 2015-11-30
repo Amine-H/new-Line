@@ -5,6 +5,13 @@
  */
 package pkgnew.line;
 
+import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
+import java.util.Iterator;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import plugin.Plugin;
+import plugin.PluginManager;
+
 /**
  *
  * @author amine
@@ -18,6 +25,19 @@ public class PluginDialog extends javax.swing.JDialog {
         super(parent, modal);
         this.setTitle("Plugins");
         initComponents();
+        DefaultTableModel model = (DefaultTableModel) TablePlugins.getModel();
+        PluginManager pluginManager = PluginManager.getInstance();
+        List<Plugin> plugins = pluginManager.getPlugins();
+
+        for(Iterator<Plugin> pluginIterator = plugins.iterator();
+                pluginIterator.hasNext();){
+            Plugin plugin = (Plugin)pluginIterator.next();
+            model.addRow(new Object[]{
+                "1",
+                plugin.getName(),
+                "3"
+            });
+        }
     }
 
     /**

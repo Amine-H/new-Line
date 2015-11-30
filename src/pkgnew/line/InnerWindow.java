@@ -7,6 +7,7 @@ package pkgnew.line;
 
 import java.awt.Container;
 import java.io.File;
+import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 
 /**
@@ -14,10 +15,12 @@ import javax.swing.JTextPane;
  * @author amine
  */
 public interface InnerWindow {
- 
+
     public JTextPane getTextPane();
+    public JScrollPane getScrollPane();
     
     public void setTextPane(JTextPane textPane);
+    public void setScrollPane(JScrollPane scrollPane);
     
     public void openFile(File file);
     

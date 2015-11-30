@@ -283,7 +283,10 @@ public class MainWindow extends javax.swing.JFrame {
     private void openMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openMenuItemActionPerformed
         JFileChooser fileChooser = new JFileChooser();
         if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-            InnerWindowImpl nv = new InnerWindowImpl(fileChooser.getSelectedFile());
+            File file = fileChooser.getSelectedFile();
+            WindowFactory winFactory = WindowFactoryImpl.getInstace();
+            InnerWindowImpl nv = (InnerWindowImpl)winFactory.createWindow();
+            nv.openFile(file);
             desktopPane.add(nv);
             try {
                 nv.setSelected(true);
@@ -312,7 +315,6 @@ public class MainWindow extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         PluginManager pManager = PluginManager.getInstance();
-        pManager.getPlugin(0).run();
     }//GEN-LAST:event_newMenuItemActionPerformed
 
     private void undoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_undoMenuItemActionPerformed

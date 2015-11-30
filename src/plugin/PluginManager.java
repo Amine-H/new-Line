@@ -68,8 +68,8 @@ public class PluginManager {
         plugins.remove(plugin);
     }
 
-    public Plugin getPlugin(int index) {
-        return plugins.get(index);
+    public List<Plugin> getPlugins() {
+        return plugins;
     }
 
     public PluginConfiguration getPluginConfiguration() {
