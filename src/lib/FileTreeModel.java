@@ -13,7 +13,7 @@ import javax.swing.tree.TreePath;
 
 /**
  *
- * @author amine
+ * @author Internet
  */
 public class FileTreeModel implements TreeModel {
 

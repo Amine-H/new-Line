@@ -15,4 +15,5 @@ public interface Plugin {
     public void run();
     public void suspend();
     public void resume();
+    public boolean isEnabled();
 }

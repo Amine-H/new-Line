@@ -8,6 +8,7 @@ package plugin;
 import javax.swing.JDesktopPane;
 import javax.swing.JMenuBar;
 import javax.swing.JTree;
+import pkgnew.line.WindowFactory;
 
 /**
  *
@@ -23,4 +24,5 @@ public interface PluginConfiguration {
 
     public JDesktopPane getDesktopPane();
     public void setDesktopPane(JDesktopPane desktopPane);
+    public WindowFactory getWindowFactory();
 }

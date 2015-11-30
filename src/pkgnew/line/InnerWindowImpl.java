@@ -50,6 +50,7 @@ public class InnerWindowImpl extends javax.swing.JInternalFrame implements Inner
         return this.textPane;
     }
     
+    
     public void setTextPane(JTextPane textPane){
         this.textPane = textPane;
     }
@@ -105,6 +106,23 @@ public class InnerWindowImpl extends javax.swing.JInternalFrame implements Inner
         setMaximizable(true);
         setResizable(true);
         setMinimumSize(new java.awt.Dimension(150, 150));
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosed(evt);
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
         scrollPane.setViewportView(textPane);
@@ -113,6 +131,11 @@ public class InnerWindowImpl extends javax.swing.JInternalFrame implements Inner
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
+        WindowFactory winFactory = WindowFactoryImpl.getInstace();
+        winFactory.removeWindow(this);
+    }//GEN-LAST:event_formInternalFrameClosed
 
     private File file;
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -5,6 +5,7 @@
  */
 package pkgnew.line;
 
+import java.awt.Container;
 import java.io.File;
 import javax.swing.JTextPane;
 

@@ -303,7 +303,8 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_pluginsMenuItemActionPerformed
 
     private void newMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newMenuItemActionPerformed
-        InnerWindowImpl nv = new InnerWindowImpl();
+        WindowFactory winFactory = WindowFactoryImpl.getInstace();
+        InnerWindowImpl nv = (InnerWindowImpl)winFactory.createWindow();
         desktopPane.add(nv);
         try {
             nv.setSelected(true);
