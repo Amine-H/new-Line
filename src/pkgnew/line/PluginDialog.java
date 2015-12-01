@@ -5,10 +5,11 @@
  */
 package pkgnew.line;
 
+import java.io.File;
 import java.util.Iterator;
 import java.util.List;
-import javax.swing.JCheckBox;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import plugin.Plugin;
 import plugin.PluginManager;
 
@@ -25,7 +26,7 @@ public class PluginDialog extends javax.swing.JDialog {
         super(parent, modal);
         this.setTitle("Plugins");
         initComponents();
-        DefaultTableModel model = (DefaultTableModel)TablePlugins.getModel();
+        DefaultTableModel model = (DefaultTableModel) TablePlugins.getModel();
         PluginManager pluginManager = PluginManager.getInstance();
         List<Plugin> plugins = pluginManager.getPlugins();
 
@@ -78,6 +79,11 @@ public class PluginDialog extends javax.swing.JDialog {
         });
 
         uninstallPlugin.setText("Uninstall");
+        uninstallPlugin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                uninstallPluginActionPerformed(evt);
+            }
+        });
 
         TablePlugins.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -138,12 +144,50 @@ public class PluginDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void enablePluginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enablePluginActionPerformed
-        // TODO add your handling code here:
+        List<Plugin> plugins = PluginManager.getInstance().getPlugins();
+        TableModel model = TablePlugins.getModel();
+        int rowCount = model.getRowCount();
+
+        for (int i = 0; i < rowCount; i++) {
+            boolean isSelected = (boolean) model.getValueAt(i,0);
+            if(isSelected){
+                plugins.get(i).resume();
+            }
+        }
     }//GEN-LAST:event_enablePluginActionPerformed
 
     private void disablePluginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disablePluginActionPerformed
-        // TODO add your handling code here:
+        List<Plugin> plugins = PluginManager.getInstance().getPlugins();
+        TableModel model = TablePlugins.getModel();
+        int rowCount = model.getRowCount();
+
+        for (int i = 0; i < rowCount; i++) {
+            boolean isSelected = (boolean) model.getValueAt(i,0);
+            if(isSelected){
+                plugins.get(i).suspend();
+            }
+        }
     }//GEN-LAST:event_disablePluginActionPerformed
+
+    private void uninstallPluginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uninstallPluginActionPerformed
+        List<Plugin> plugins = PluginManager.getInstance().getPlugins();
+        TableModel model = TablePlugins.getModel();
+        int rowCount = model.getRowCount();
+        File[] files = File.listRoots();
+
+        for (int i = 0; i < rowCount; i++) {
+            boolean isSelected = (boolean) model.getValueAt(i,0);
+            if(isSelected){
+                plugins.get(i).suspend();
+
+                for(File file:files){
+                    if(file.getName().startsWith(plugins.get(i).getName())){
+                        file.delete();
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_uninstallPluginActionPerformed
 
     /**
      * @param args the command line arguments
