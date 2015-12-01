@@ -215,11 +215,13 @@ public class PluginDialog extends javax.swing.JDialog {
             File file = jf.getSelectedFile();
             String fileName = jf.getSelectedFile().getName();
             try{
-                FileUtils.copyFile(file, new File("plugins/"));
-                file = new File(fileName);
-                PluginManager.getInstance().loadPlugin(file);
+                FileUtils.copyFile(file, new File("plugins/"+fileName));
+                file = new File("plugins/"+fileName);
+                Plugin plugin = PluginManager.getInstance().loadPlugin(file);
+                plugin.load(PluginManager.getInstance().getPluginConfiguration());
             }catch(Exception e){e.printStackTrace();}
         }
+        listPlugins();
     }//GEN-LAST:event_addPluginActionPerformed
 
     /**
