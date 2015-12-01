@@ -8,8 +8,11 @@ package pkgnew.line;
 import java.io.File;
 import java.util.Iterator;
 import java.util.List;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import org.apache.commons.io.FileUtils;
 import plugin.Plugin;
 import plugin.PluginManager;
 
@@ -136,12 +139,12 @@ public class PluginDialog extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void listPlugins(){
+    private void listPlugins() {
         DefaultTableModel model = (DefaultTableModel) TablePlugins.getModel();
         PluginManager pluginManager = PluginManager.getInstance();
         List<Plugin> plugins = pluginManager.getPlugins();
         //clear out the table
-        for(int i = 0;i<model.getRowCount();i++){
+        for (int i = 0; i < model.getRowCount(); i++) {
             model.removeRow(i);
         }
         //update the table
@@ -161,8 +164,8 @@ public class PluginDialog extends javax.swing.JDialog {
         int rowCount = model.getRowCount();
 
         for (int i = 0; i < rowCount; i++) {
-            boolean isSelected = (boolean) model.getValueAt(i,0);
-            if(isSelected){
+            boolean isSelected = (boolean) model.getValueAt(i, 0);
+            if (isSelected) {
                 plugins.get(i).resume();
             }
         }
@@ -175,8 +178,8 @@ public class PluginDialog extends javax.swing.JDialog {
         int rowCount = model.getRowCount();
 
         for (int i = 0; i < rowCount; i++) {
-            boolean isSelected = (boolean) model.getValueAt(i,0);
-            if(isSelected){
+            boolean isSelected = (boolean) model.getValueAt(i, 0);
+            if (isSelected) {
                 plugins.get(i).suspend();
             }
         }
@@ -187,16 +190,16 @@ public class PluginDialog extends javax.swing.JDialog {
         List<Plugin> plugins = PluginManager.getInstance().getPlugins();
         TableModel model = TablePlugins.getModel();
         int rowCount = model.getRowCount();
-        File[] files = ((File)new File("plugins/")).listFiles();
+        File[] files = ((File) new File("plugins/")).listFiles();
 
         for (int i = 0; i < rowCount; i++) {
-            boolean isSelected = (boolean) model.getValueAt(i,0);
-            if(isSelected){
+            boolean isSelected = (boolean) model.getValueAt(i, 0);
+            if (isSelected) {
                 plugins.get(i).suspend();
 
-                for(File file:files){
-                    System.out.println("comparing "+file.getName()+" and "+plugins.get(i).getName());
-                    if(file.getName().startsWith(plugins.get(i).getName())){
+                for (File file : files) {
+                    System.out.println("comparing " + file.getName() + " and " + plugins.get(i).getName());
+                    if (file.getName().startsWith(plugins.get(i).getName())) {
                         file.delete();
                         plugins.remove(i);
                     }
@@ -207,7 +210,16 @@ public class PluginDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_uninstallPluginActionPerformed
 
     private void addPluginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPluginActionPerformed
-        
+        JFileChooser jf = new JFileChooser();
+        if(jf.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
+            File file = jf.getSelectedFile();
+            String fileName = jf.getSelectedFile().getName();
+            try{
+                FileUtils.copyFile(file, new File("plugins/"));
+                file = new File(fileName);
+                PluginManager.getInstance().loadPlugin(file);
+            }catch(Exception e){e.printStackTrace();}
+        }
     }//GEN-LAST:event_addPluginActionPerformed
 
     /**

@@ -51,13 +51,24 @@ public class PluginManager {
         for (File file : directory.listFiles()) {
             if (!file.isDirectory()) {
 
-                jcl.getSystemLoader().setOrder(1);
-                jcl.add(file.getAbsolutePath());
-                Plugin plugin = (Plugin) factory.create(jcl, "plugin." + file.getName().replace(".jar", ""));
-                this.addPlugin(plugin);
+                //jcl.getSystemLoader().setOrder(1);
+                //jcl.add(file.getAbsolutePath());
+                //Plugin plugin = (Plugin) factory.create(jcl, "plugin." + file.getName().replace(".jar", ""));
+                //this.addPlugin(plugin);
+                Plugin plugin = loadPlugin(file);
                 plugin.load(pluginConfiguration);
             }
         }
+    }
+
+    public Plugin loadPlugin(File file) {
+        JarClassLoader jcl = new JarClassLoader();
+        JclObjectFactory factory = JclObjectFactory.getInstance(true);
+        jcl.getSystemLoader().setOrder(1);
+        jcl.add(file.getAbsolutePath());
+        Plugin plugin = (Plugin) factory.create(jcl, "plugin." + file.getName().replace(".jar", ""));
+        this.addPlugin(plugin);
+        return plugin;
     }
 
     public void addPlugin(Plugin plugin) {
