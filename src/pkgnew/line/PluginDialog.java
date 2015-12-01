@@ -5,9 +5,9 @@
  */
 package pkgnew.line;
 
-import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
 import java.util.Iterator;
 import java.util.List;
+import javax.swing.JCheckBox;
 import javax.swing.table.DefaultTableModel;
 import plugin.Plugin;
 import plugin.PluginManager;
@@ -25,17 +25,17 @@ public class PluginDialog extends javax.swing.JDialog {
         super(parent, modal);
         this.setTitle("Plugins");
         initComponents();
-        DefaultTableModel model = (DefaultTableModel) TablePlugins.getModel();
+        DefaultTableModel model = (DefaultTableModel)TablePlugins.getModel();
         PluginManager pluginManager = PluginManager.getInstance();
         List<Plugin> plugins = pluginManager.getPlugins();
 
-        for(Iterator<Plugin> pluginIterator = plugins.iterator();
-                pluginIterator.hasNext();){
-            Plugin plugin = (Plugin)pluginIterator.next();
+        for (Iterator<Plugin> pluginIterator = plugins.iterator();
+                pluginIterator.hasNext();) {
+            Plugin plugin = (Plugin) pluginIterator.next();
             model.addRow(new Object[]{
-                "1",
+                false,
                 plugin.getName(),
-                "3"
+                plugin.isEnabled()
             });
         }
     }
@@ -88,23 +88,18 @@ public class PluginDialog extends javax.swing.JDialog {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.Object.class
+                Boolean.class, java.lang.String.class, Boolean.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+            public boolean isCellEditable(int row, int column) {
+                return column==0;
+            }
         });
         TablePlugins.getTableHeader().setReorderingAllowed(false);
         ScrollPane.setViewportView(TablePlugins);
-        if (TablePlugins.getColumnModel().getColumnCount() > 0) {
-            TablePlugins.getColumnModel().getColumn(0).setMinWidth(50);
-            TablePlugins.getColumnModel().getColumn(0).setPreferredWidth(50);
-            TablePlugins.getColumnModel().getColumn(0).setMaxWidth(50);
-            TablePlugins.getColumnModel().getColumn(2).setMinWidth(50);
-            TablePlugins.getColumnModel().getColumn(2).setPreferredWidth(50);
-            TablePlugins.getColumnModel().getColumn(2).setMaxWidth(50);
-        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
