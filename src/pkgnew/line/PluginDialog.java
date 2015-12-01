@@ -26,19 +26,7 @@ public class PluginDialog extends javax.swing.JDialog {
         super(parent, modal);
         this.setTitle("Plugins");
         initComponents();
-        DefaultTableModel model = (DefaultTableModel) TablePlugins.getModel();
-        PluginManager pluginManager = PluginManager.getInstance();
-        List<Plugin> plugins = pluginManager.getPlugins();
-
-        for (Iterator<Plugin> pluginIterator = plugins.iterator();
-                pluginIterator.hasNext();) {
-            Plugin plugin = (Plugin) pluginIterator.next();
-            model.addRow(new Object[]{
-                false,
-                plugin.getName(),
-                plugin.isEnabled()
-            });
-        }
+        listPlugins();
     }
 
     /**
@@ -63,6 +51,11 @@ public class PluginDialog extends javax.swing.JDialog {
         setName("Plugins"); // NOI18N
 
         addPlugin.setText("Add Plugin..");
+        addPlugin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addPluginActionPerformed(evt);
+            }
+        });
 
         enablePlugin.setText("Enable");
         enablePlugin.addActionListener(new java.awt.event.ActionListener() {
@@ -143,6 +136,25 @@ public class PluginDialog extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void listPlugins(){
+        DefaultTableModel model = (DefaultTableModel) TablePlugins.getModel();
+        PluginManager pluginManager = PluginManager.getInstance();
+        List<Plugin> plugins = pluginManager.getPlugins();
+        //clear out the table
+        for(int i = 0;i<model.getRowCount();i++){
+            model.removeRow(i);
+        }
+        //update the table
+        for (Iterator<Plugin> pluginIterator = plugins.iterator();
+                pluginIterator.hasNext();) {
+            Plugin plugin = (Plugin) pluginIterator.next();
+            model.addRow(new Object[]{
+                false,
+                plugin.getName(),
+                plugin.isEnabled()
+            });
+        }
+    }
     private void enablePluginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enablePluginActionPerformed
         List<Plugin> plugins = PluginManager.getInstance().getPlugins();
         TableModel model = TablePlugins.getModel();
@@ -154,6 +166,7 @@ public class PluginDialog extends javax.swing.JDialog {
                 plugins.get(i).resume();
             }
         }
+        listPlugins();
     }//GEN-LAST:event_enablePluginActionPerformed
 
     private void disablePluginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disablePluginActionPerformed
@@ -167,13 +180,14 @@ public class PluginDialog extends javax.swing.JDialog {
                 plugins.get(i).suspend();
             }
         }
+        listPlugins();
     }//GEN-LAST:event_disablePluginActionPerformed
 
     private void uninstallPluginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uninstallPluginActionPerformed
         List<Plugin> plugins = PluginManager.getInstance().getPlugins();
         TableModel model = TablePlugins.getModel();
         int rowCount = model.getRowCount();
-        File[] files = File.listRoots();
+        File[] files = ((File)new File("plugins/")).listFiles();
 
         for (int i = 0; i < rowCount; i++) {
             boolean isSelected = (boolean) model.getValueAt(i,0);
@@ -181,13 +195,20 @@ public class PluginDialog extends javax.swing.JDialog {
                 plugins.get(i).suspend();
 
                 for(File file:files){
+                    System.out.println("comparing "+file.getName()+" and "+plugins.get(i).getName());
                     if(file.getName().startsWith(plugins.get(i).getName())){
                         file.delete();
+                        plugins.remove(i);
                     }
                 }
             }
         }
+        listPlugins();
     }//GEN-LAST:event_uninstallPluginActionPerformed
+
+    private void addPluginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPluginActionPerformed
+        
+    }//GEN-LAST:event_addPluginActionPerformed
 
     /**
      * @param args the command line arguments
