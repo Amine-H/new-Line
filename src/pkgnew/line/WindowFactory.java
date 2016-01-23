@@ -10,6 +10,9 @@ import java.util.List;
 /**
  *
  * @author amine
+ * serves as a Creator for InnerWindows,
+ * as the Subject of the Observers,
+ * it's a Singleton
  */
 public interface WindowFactory {
     public InnerWindow createWindow();

@@ -13,6 +13,7 @@ import javax.swing.JTextPane;
 /**
  *
  * @author amine
+ * abstraction of InnerWindow, which is a JInternalFrame
  */
 public interface InnerWindow {
 

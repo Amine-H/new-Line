@@ -14,6 +14,7 @@ import java.util.concurrent.Executors;
 /**
  *
  * @author amine
+ * this is an implementation of WindowFactory
  */
 public class WindowFactoryImpl implements WindowFactory{
     //Singleton

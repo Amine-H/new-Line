@@ -22,6 +22,7 @@ import plugin.PluginManager;
 /**
  *
  * @author amine
+ * this is a JInternalFrame that will be created inside the MainWindow
  */
 public class InnerWindowImpl extends javax.swing.JInternalFrame implements InnerWindow{
 
@@ -46,20 +47,32 @@ public class InnerWindowImpl extends javax.swing.JInternalFrame implements Inner
         });
     }
     
+    /**
+     * @return the JTextPane inside of the Window
+     */
     public JTextPane getTextPane(){
         return this.textPane;
     }
     
-    
+    /**
+     * changes the TextPane with indicated value
+     * @param textPane 
+     */
     public void setTextPane(JTextPane textPane){
         this.textPane = textPane;
     }
-    
+    /**
+     * constructs the window while initializing File
+     * @param file 
+     */
     public InnerWindowImpl(File file){
         this();
         this.openFile(file);
     }
-    
+    /**
+     * opens File and initiates JTextPane with content
+     * @param file 
+     */
     public void openFile(File file){
         try{
             FileReader reader = new FileReader(file);
@@ -69,18 +82,27 @@ public class InnerWindowImpl extends javax.swing.JInternalFrame implements Inner
             System.out.println("Could not open "+file.getName());
         }
     }
-    
+    /**
+     * saves JTextPane content into File
+     * @throws Exception 
+     */
     public void saveFile() throws Exception{
         FileWriter writer = new FileWriter(file);
         this.textPane.write(writer);
         writer.close();
     }
-    
+    /**
+     * changes currently open File
+     * @param file 
+     */
     public void selectFile(File file){
         this.file = file;
         this.setTitle(file.getName());
     }
-    
+    /**
+     * saves JTextPane content into File
+     * @param file 
+     */
     public void saveFile(File file){
         selectFile(file);
         try{
@@ -132,6 +154,10 @@ public class InnerWindowImpl extends javax.swing.JInternalFrame implements Inner
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * executed when the InnerWindow is closed
+     * @param evt 
+     */
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
         WindowFactory winFactory = WindowFactoryImpl.getInstace();
         winFactory.removeWindow(this);
@@ -143,11 +169,19 @@ public class InnerWindowImpl extends javax.swing.JInternalFrame implements Inner
     private javax.swing.JTextPane textPane;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * returns the JScrollPane of the InnerWindow
+     * @return JScrollPane
+     */
     @Override
     public JScrollPane getScrollPane() {
         return this.scrollPane;
     }
 
+    /**
+     * sets the JScrollPane with given value
+     * @param scrollPane 
+     */
     @Override
     public void setScrollPane(JScrollPane scrollPane) {
         this.scrollPane = scrollPane;

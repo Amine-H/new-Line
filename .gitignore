@@ -2,3 +2,9 @@
 /build/
 /plugins/
 *.class
+/plugins-src/HelloWorld/build/
+/plugins-src/HelloWorld/dist/
+/plugins-src/HelloWorld/nbproject/private/
+/plugins-src/JSyntaxHighlighter/build/
+/plugins-src/JSyntaxHighlighter/dist/
+/plugins-src/JSyntaxHighlighter/nbproject/private/

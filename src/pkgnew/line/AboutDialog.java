@@ -8,6 +8,7 @@ package pkgnew.line;
 /**
  *
  * @author amine
+ * this dialog show informations about the editor and me :p
  */
 public class AboutDialog extends javax.swing.JDialog {
 
@@ -62,6 +63,7 @@ public class AboutDialog extends javax.swing.JDialog {
 
     /**
      * @param args the command line arguments
+     * starts a Thread that will open the Dialog
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

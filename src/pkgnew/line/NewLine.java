@@ -12,7 +12,8 @@ package pkgnew.line;
 public class NewLine {
 
     /**
-     * @param args the command line arguments
+     * @param args the command line arguments, currently not used
+     * basically it will start a MainWindow instance
      */
     public static void main(String[] args) {
         MainWindow.main(new String[0]);

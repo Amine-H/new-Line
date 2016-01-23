@@ -21,11 +21,13 @@ import plugin.PluginManager;
 /**
  *
  * @author amine
+ * this is the mainWindow, it contains InnerWindows
  */
 public class MainWindow extends javax.swing.JFrame {
 
     /**
      * Creates new form MainWindow
+     * 
      */
     public MainWindow() {
         initComponents();
@@ -276,10 +278,18 @@ public class MainWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * closes the editor
+     * @param evt unused
+     */
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
         System.exit(0);
     }//GEN-LAST:event_exitMenuItemActionPerformed
 
+    /**
+     * shows open File Window
+     * @param evt unused
+     */
     private void openMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openMenuItemActionPerformed
         JFileChooser fileChooser = new JFileChooser();
         if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
@@ -296,15 +306,27 @@ public class MainWindow extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_openMenuItemActionPerformed
 
+    /**
+     * opens settings dialog
+     * @param evt unused
+     */
     private void aboutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutMenuItemActionPerformed
         //Settings
     }//GEN-LAST:event_aboutMenuItemActionPerformed
 
+    /**
+     * shows plugins dialog
+     * @param evt unused
+     */
     private void pluginsMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pluginsMenuItemActionPerformed
         PluginDialog dialog = new PluginDialog(this, true);
         dialog.setVisible(true);
     }//GEN-LAST:event_pluginsMenuItemActionPerformed
 
+    /**
+     * opens new InnerWindow
+     * @param evt unused
+     */
     private void newMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newMenuItemActionPerformed
         WindowFactory winFactory = WindowFactoryImpl.getInstace();
         InnerWindowImpl nv = (InnerWindowImpl)winFactory.createWindow();
@@ -317,12 +339,20 @@ public class MainWindow extends javax.swing.JFrame {
         PluginManager pManager = PluginManager.getInstance();
     }//GEN-LAST:event_newMenuItemActionPerformed
 
+    /**
+     * undo last action
+     * @param evt unused
+     */
     private void undoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_undoMenuItemActionPerformed
         if (desktopPane.getSelectedFrame() == null) {
             return;
         }
     }//GEN-LAST:event_undoMenuItemActionPerformed
 
+    /**
+     * cut text from editor
+     * @param evt unused
+     */
     private void cutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cutMenuItemActionPerformed
         if (desktopPane.getSelectedFrame() == null) {
             return;
@@ -330,6 +360,10 @@ public class MainWindow extends javax.swing.JFrame {
         ((InnerWindowImpl) desktopPane.getSelectedFrame()).getTextPane().cut();
     }//GEN-LAST:event_cutMenuItemActionPerformed
 
+    /**
+     * pasts text into editor
+     * @param evt unused
+     */
     private void pasteMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pasteMenuItemActionPerformed
         if (desktopPane.getSelectedFrame() == null) {
             return;
@@ -337,6 +371,10 @@ public class MainWindow extends javax.swing.JFrame {
         ((InnerWindowImpl) desktopPane.getSelectedFrame()).getTextPane().paste();
     }//GEN-LAST:event_pasteMenuItemActionPerformed
 
+    /**
+     * copies text into editor
+     * @param evt unused
+     */
     private void copyMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyMenuItemActionPerformed
         if (desktopPane.getSelectedFrame() == null) {
             return;
@@ -344,6 +382,10 @@ public class MainWindow extends javax.swing.JFrame {
         ((InnerWindowImpl) desktopPane.getSelectedFrame()).getTextPane().copy();
     }//GEN-LAST:event_copyMenuItemActionPerformed
 
+    /**
+     * deletes text from editor
+     * @param evt unused
+     */
     private void deleteMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteMenuItemActionPerformed
         if (desktopPane.getSelectedFrame() == null) {
             return;
@@ -355,6 +397,10 @@ public class MainWindow extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_deleteMenuItemActionPerformed
 
+    /**
+     * saves text of current active InnerWindow into File
+     * @param evt unused
+     */
     private void saveMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMenuItemActionPerformed
         if (desktopPane.getSelectedFrame() == null) {
             return;
@@ -369,6 +415,10 @@ public class MainWindow extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_saveMenuItemActionPerformed
 
+    /**
+     * saves text of current active InnerWindow into File 
+     * @param evt unused
+     */
     private void saveAsMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveAsMenuItemActionPerformed
         if (desktopPane.getSelectedFrame() == null) {
             return;
@@ -379,6 +429,10 @@ public class MainWindow extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_saveAsMenuItemActionPerformed
 
+    /**
+     * makes me known :p
+     * @param evt unused
+     */
     private void aboutMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutMenuItem1ActionPerformed
         //AboutDialog dialog = new AboutDialog(this,true);
         //dialog.setLocationRelativeTo(null);
@@ -386,6 +440,10 @@ public class MainWindow extends javax.swing.JFrame {
         AboutDialog.main(null);
     }//GEN-LAST:event_aboutMenuItem1ActionPerformed
 
+    /**
+     * show dialog to select folder
+     * @param evt unused
+     */
     private void openFolderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openFolderActionPerformed
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -398,6 +456,10 @@ public class MainWindow extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_openFolderActionPerformed
 
+    /**
+     * executed every time the ProjectTree is clicked
+     * @param evt has informations about the click
+     */
     private void ProjectTreeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProjectTreeMouseClicked
         Object[] paths = ProjectTree.getSelectionPath().getPath();
         if (evt.getClickCount() == 2) {
